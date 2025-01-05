@@ -32,10 +32,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { addTask } from "@/redux/features/task/taskSlice";
-import { selectUsers } from "@/redux/features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { ITask } from "@/types";
+import { useCreateTaskMutation } from "@/redux/api/baseApi";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
@@ -43,11 +40,16 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 export function AddTaskModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const users = useAppSelector(selectUsers);
+  // const users = useAppSelector(selectUsers);
   const form = useForm();
-  const dispatch = useAppDispatch();
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    dispatch(addTask(data as ITask));
+  const [createTask] = useCreateTaskMutation();
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const taskData = {
+      ...data,
+      isCompleted: false,
+      // dueDate: format(new Date(data.dueDate), "dd-MM-yyyy"),
+    };
+    await createTask(taskData).unwrap();
     setIsOpen(false);
     form.reset();
   };
@@ -57,8 +59,7 @@ export function AddTaskModal() {
         <Button>Add Task</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <DialogDescription className="sr-only">
-        </DialogDescription>
+        <DialogDescription className="sr-only"></DialogDescription>
         <DialogHeader>
           <DialogTitle>Add Task</DialogTitle>
           <Form {...form}>
@@ -158,7 +159,7 @@ export function AddTaskModal() {
                   </FormItem>
                 )}
               />
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="assignTo"
                 render={({ field }) => (
@@ -184,7 +185,7 @@ export function AddTaskModal() {
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
               <DialogFooter>
                 <Button className="mt-5 mx-auto" type="submit">
                   Add Task

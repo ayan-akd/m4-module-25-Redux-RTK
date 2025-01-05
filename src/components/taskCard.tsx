@@ -4,10 +4,6 @@ import { Checkbox } from "./ui/checkbox";
 import { Trash2 } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
-  deleteTask,
-  toggleCompleteState,
-} from "@/redux/features/task/taskSlice";
-import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -18,16 +14,15 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
 import { EditTaskModal } from "@/module/EditTaskModal";
-import { selectUsers } from "@/redux/features/user/userSlice";
 
 interface IProps {
   task: ITask;
 }
 
 export default function TaskCard({ task }: IProps) {
-  const dispatch = useAppDispatch();
-  const users = useAppSelector(selectUsers);
-  const assignedUser = users.find((user) => user.id === task.assignTo);
+  // const dispatch = useAppDispatch();
+  // const users = useAppSelector(selectUsers);
+  // const assignedUser = users.find((user) => user.id === task.assignTo);
   return (
     <div className="p-5 border-white border rounded-md">
       <div className="flex justify-between items-center">
@@ -61,7 +56,7 @@ export default function TaskCard({ task }: IProps) {
                 <div className="flex gap-3 justify-center">
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                   <AlertDialogAction
-                    onClick={() => dispatch(deleteTask(task.id))}
+                    // onClick={() => dispatch(deleteTask(task.id))}
                   >
                     Delete
                   </AlertDialogAction>
@@ -70,16 +65,18 @@ export default function TaskCard({ task }: IProps) {
             </AlertDialog>
           </div>
           <div>
-            <EditTaskModal task={task} />
+            {/* <EditTaskModal task={task} /> */}
           </div>
           <Checkbox
             checked={task.isCompleted}
-            onClick={() => dispatch(toggleCompleteState(task.id))}
+            // onClick={() => dispatch(toggleCompleteState(task.id))}
           />
         </div>
       </div>
       <p>{task.description}</p>
-      <p>Assigned To - {assignedUser ? assignedUser.name : "None"}</p>
+      <p>Assigned To - 
+        {/* {assignedUser ? assignedUser.name : "None"} */}
+        </p>
       <p>{task.dueDate}</p>
     </div>
   );

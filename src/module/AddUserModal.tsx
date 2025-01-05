@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { addUser } from "@/redux/features/user/userSlice";
+// import { addUser } from "@/redux/features/user/userSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { IUser } from "@/types";
 import { useState } from "react";
@@ -27,11 +27,11 @@ export function AddUserModal() {
   const [isOpen, setIsOpen] = useState(false);
   const form = useForm();
   const dispatch = useAppDispatch();
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    dispatch(addUser(data as IUser));
-    setIsOpen(false);
-    form.reset();
-  };
+  // const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  //   dispatch(addUser(data as IUser));
+  //   setIsOpen(false);
+  //   form.reset();
+  // };
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
@@ -42,7 +42,9 @@ export function AddUserModal() {
         <DialogHeader>
           <DialogTitle className="text-center">Add User</DialogTitle>
           <Form {...form}>
-            <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
+            <form className="space-y-3" 
+            // onSubmit={form.handleSubmit(onSubmit)}
+            >
               <FormField
                 control={form.control}
                 name="name"

@@ -11,7 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
-import { removeUser } from "@/redux/features/user/userSlice";
+// import { removeUser } from "@/redux/features/user/userSlice";
 
 interface IProps {
   user: IUser;
@@ -44,7 +44,7 @@ export default function UserCard({ user }: IProps) {
                 <div className="flex gap-3 justify-center">
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                   <AlertDialogAction
-                    onClick={() => dispatch(removeUser(user.id))}
+                    // onClick={() => dispatch(removeUser(user.id))}
                   >
                     Delete
                   </AlertDialogAction>
